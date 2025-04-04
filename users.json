@@ -1,0 +1,34 @@
+[
+    {
+      "id": 1,
+      "name": "Matias",
+      "lastName": "Garcia",
+      "email": "matias.garcia@gmail.com",
+      "password": "Contraseña123",
+      "active": true
+    },
+    {
+      "id": 2,
+      "name": "Valentina",
+      "lastName": "Jara",
+      "email": "jara.valentina@gmail.com",
+      "password": "Contraseña123",
+      "active": true
+    },
+    {
+      "id": 3,
+      "name": "Sofía",
+      "lastName": "Gómez",
+      "email": "sofia.gomez@gmail.com",
+      "password": "Contraseña123",
+      "active": false
+    },
+    {
+      "id": 4,
+      "name": "Martín",
+      "lastName": "Rodríguez",
+      "email": "martin.rodriguez@gmail.com",
+      "password": "Contraseña123",
+      "active": true
+    }
+]

@@ -1,0 +1,71 @@
+[
+    {
+      "id": 101,
+      "name": "Pelota de Fútbol Profesional",
+      "description": "Balón de fútbol reglamentario, tamaño y peso oficial FIFA.",
+      "price": 35.99,
+      "imagen": "pelota_futbol.jpg",
+      "stock": 45,
+      "category": "Deportes",
+      "subcategory": "Fútbol"
+    },
+    {
+      "id": 102,
+      "name": "Zapatillas de Running de Alto Rendimiento",
+      "description": "Calzado deportivo con amortiguación avanzada para corredores exigentes.",
+      "price": 89.50,
+      "imagen": "zapatillas_running.jpg",
+      "stock": 30,
+      "category": "Running"
+    },
+    {
+      "id": 103,
+      "name": "Raqueta de Tenis de Grafito",
+      "description": "Raqueta ligera y resistente para jugadores de nivel intermedio y avanzado.",
+      "price": 75.00,
+      "imagen": "raqueta_tenis.jpg",
+      "stock": 25,
+      "category": "Deportes",
+      "subcategory": "Tenis"
+    },
+    {
+      "id": 104,
+      "name": "Juego de Mancuernas Ajustables (2 x 10kg)",
+      "description": "Set de dos mancuernas con peso ajustable hasta 10kg cada una.",
+      "price": 59.99,
+      "imagen": "mancuernas.jpg",
+      "stock": 20,
+      "category": "Fitness",
+      "subcategory": "Gimnasio"
+    },
+    {
+      "id": 105,
+      "name": "Camiseta Técnica Deportiva Transpirable",
+      "description": "Remera deportiva de tejido técnico que absorbe el sudor y mantiene fresco.",
+      "price": 19.75,
+      "imagen": "camiseta_deportiva.jpg",
+      "stock": 60,
+      "category": "Indumentaria",
+      "subcategory": "Remeras"
+    },
+    {
+      "id": 106,
+      "name": "Bicicleta de Montaña Aro 29",
+      "description": "Bicicleta MTB con cuadro de aluminio, suspensión delantera y cambios Shimano.",
+      "price": 399.00,
+      "imagen": "bicicleta_mtb.jpg",
+      "stock": 10,
+      "category": "Deportes",
+      "subcategory": "Ciclismo"
+    },
+    {
+      "id": 107,
+      "name": "Tabla de Yoga Antideslizante",
+      "description": "Mat de yoga de alta densidad con superficie antideslizante para mayor estabilidad.",
+      "price": 28.50,
+      "imagen": "tabla_yoga.jpg",
+      "stock": 35,
+      "category": "Fitness",
+      "subcategory": "Yoga"
+    }
+]
