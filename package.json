@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/garciaMatiasNicolas/Aplicaciones-Web-II/issues"
   },
-  "homepage": "https://github.com/garciaMatiasNicolas/Aplicaciones-Web-II#readme"
+  "homepage": "https://github.com/garciaMatiasNicolas/Aplicaciones-Web-II#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
 }
