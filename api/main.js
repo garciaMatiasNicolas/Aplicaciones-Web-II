@@ -3,9 +3,13 @@ const app = express();
 const cors = require('cors');
 const usersRoutes = require('./routes/users.js');
 const productsRoutes = require('./routes/products.js');
+const connectDB = require('./data/db');
+require('dotenv').config();
+
+connectDB();
 
 app.use(cors({
-  origin: 'http://localhost:3000', // origen que quieres permitir
+  origin: 'http://localhost:3001', // origen que quieres permitir
   credentials: true, // si necesitas enviar cookies o headers personalizados
 }));
 

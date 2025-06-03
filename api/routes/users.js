@@ -4,7 +4,6 @@ const {
   getAllUsers,
   getActiveUsers,
   createUser,
-  findUserByEmail,
   updateUser,
   deleteUser
 } = require('../controllers/usersController.js');
@@ -12,7 +11,6 @@ const {
 router.get('/', getAllUsers);
 router.get('/active', getActiveUsers);
 router.post('/', createUser);
-router.post('/find', findUserByEmail);
 router.put('/:id', updateUser);
 router.delete('/:id', deleteUser);
 

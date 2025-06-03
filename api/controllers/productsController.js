@@ -1,50 +1,75 @@
-const fs = require('fs');
-const path = require('path');
 
-const productsDataPath = path.join(__dirname, '../data/products.json');
+const Product = require('../data/products'); 
 
-// Obtener todos los productos
-const getAllProducts = (req, res) => {
-    const products = JSON.parse(fs.readFileSync(productsDataPath));
-    res.json(products);
+const getAllProducts = async (req, res) => {
+    try {
+        const products = await Product.find();
+        res.json(products);
+    } catch (error) {
+        console.error('Error al obtener los productos:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
 };
 
-// Crear un nuevo producto
-const createProduct = (req, res) => {
-    const products = JSON.parse(fs.readFileSync(productsDataPath));
-    const newProduct = { id: Date.now(), ...req.body };
-    products.push(newProduct);
-    fs.writeFileSync(productsDataPath, JSON.stringify(products, null, 2));
-    res.status(201).json(newProduct);
+const createProduct = async (req, res) => {
+    try {
+        const newProduct = new Product(req.body); 
+        const savedProduct = await newProduct.save(); 
+        res.status(201).json(savedProduct);
+    } catch (error) {
+        console.error('Error al crear el producto:', error);
+        res.status(400).json({ error: error.message });
+    }
 };
 
-// Buscar producto por nombre
-const findProductByName = (req, res) => {
-    const { name } = req.body;
-    const products = JSON.parse(fs.readFileSync(productsDataPath));
-    const product = products.find(p => p.name.toLowerCase() === name.toLowerCase());
-    product ? res.json(product) : res.status(404).json({ error: 'Producto no encontrado' });
+const findProductByName = async (req, res) => {
+    try {
+        const { name } = req.body;
+        const product = await Product.findOne({ name: { $regex: new RegExp(name, 'i') } });
+
+        if (product) {
+            res.json(product);
+        } else {
+            res.status(404).json({ error: 'Producto no encontrado' });
+        }
+    } catch (error) {
+        console.error('Error al buscar el producto por nombre:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
 };
 
-// Actualizar un producto por ID
-const updateProduct = (req, res) => {
-    const { id } = req.params;
-    const products = JSON.parse(fs.readFileSync(productsDataPath));
-    const index = products.findIndex(p => p.id == id);
-    if (index === -1) return res.status(404).json({ error: 'Producto no encontrado' });
-    products[index] = { ...products[index], ...req.body };
-    fs.writeFileSync(productsDataPath, JSON.stringify(products, null, 2));
-    res.json(products[index]);
+const updateProduct = async (req, res) => {
+    try {
+        const { id } = req.params; 
+        const updatedProduct = await Product.findByIdAndUpdate(id, req.body, { new: true, runValidators: true });
+
+        if (updatedProduct) {
+            res.json(updatedProduct);
+        } else {
+            res.status(404).json({ error: 'Producto no encontrado' });
+        }
+    } catch (error) {
+        console.error('Error al actualizar el producto:', error);
+        res.status(400).json({ error: error.message }); 
+    }
 };
 
-// Eliminar un producto por ID
-const deleteProduct = (req, res) => {
-    const { id } = req.params;
-    const products = JSON.parse(fs.readFileSync(productsDataPath));
-    const newProducts = products.filter(p => p.id != id);
-    fs.writeFileSync(productsDataPath, JSON.stringify(newProducts, null, 2));
-    res.json({ message: 'Producto eliminado correctamente' });
+const deleteProduct = async (req, res) => {
+    try {
+        const { id } = req.params; 
+        const deletedProduct = await Product.findByIdAndDelete(id);
+
+        if (deletedProduct) {
+            res.json({ message: 'Producto eliminado correctamente', deletedProduct });
+        } else {
+            res.status(404).json({ error: 'Producto no encontrado' });
+        }
+    } catch (error) {
+        console.error('Error al eliminar el producto:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
 };
+
 
 module.exports = {
     getAllProducts,

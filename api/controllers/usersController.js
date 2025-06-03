@@ -1,62 +1,55 @@
-const fs = require('fs');
-const path = require('path');
-const salesDataPath = path.join(__dirname, '../data/sales.json');
-const usersDataPath = path.join(__dirname, '../data/users.json');
+const User = require('../data/user');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-const getAllUsers = (req, res) => {
-  const users = JSON.parse(fs.readFileSync(usersDataPath));
+const getAllUsers = async (req, res) => {
+  const users = await User.find();
   res.json(users);
 };
 
-const getActiveUsers = (req, res) => {
-  const users = JSON.parse(fs.readFileSync(usersDataPath));
-  const active = users.filter(u => u.active);
+const getActiveUsers = async (req, res) => {
+  const active = await User.find({ active: true });
   res.json(active);
 };
 
-const createUser = (req, res) => {
-  const users = JSON.parse(fs.readFileSync(usersDataPath));
-  const newUser = { id: Date.now(), ...req.body };
-  users.push(newUser);
-  fs.writeFileSync(usersDataPath, JSON.stringify(users, null, 2));
+const createUser = async (req, res) => {
+  const { name, email, password, active } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const newUser = new User({ name, email, password: hashedPassword, active });
+  await newUser.save();
   res.status(201).json(newUser);
 };
 
-const findUserByEmail = (req, res) => {
-  const { email } = req.body;
-  const users = JSON.parse(fs.readFileSync(usersDataPath));
-  const user = users.find(u => u.email === email);
-  user ? res.json(user) : res.status(404).json({ error: 'User not found' });
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
+
+  const match = await bcrypt.compare(password, user.password);
+  if (!match) return res.status(401).json({ error: 'Credenciales inválidas' });
+
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+  res.json({ token });
 };
 
-const updateUser = (req, res) => {
+const updateUser = async (req, res) => {
   const { id } = req.params;
-  const users = JSON.parse(fs.readFileSync(usersDataPath));
-  const index = users.findIndex(u => u.id == id);
-  if (index === -1) return res.status(404).json({ error: 'User not found' });
-  users[index] = { ...users[index], ...req.body };
-  fs.writeFileSync(usersDataPath, JSON.stringify(users, null, 2));
-  res.json(users[index]);
+  const updatedUser = await User.findByIdAndUpdate(id, req.body, { new: true });
+  if (!updatedUser) return res.status(404).json({ error: 'Usuario no encontrado' });
+  res.json(updatedUser);
 };
 
-const deleteUser = (req, res) => {
+const deleteUser = async (req, res) => {
   const { id } = req.params;
-  const users = JSON.parse(fs.readFileSync(usersDataPath));
-  const sales = JSON.parse(fs.readFileSync(salesDataPath));
-  const hasSales = sales.some(sale => sale.userId == id);
-  if (hasSales) {
-    return res.status(400).json({ error: 'Cannot delete user with existing sales' });
-  }
-  const newUsers = users.filter(u => u.id != id);
-  fs.writeFileSync(usersDataPath, JSON.stringify(newUsers, null, 2));
-  res.json({ message: 'User deleted successfully' });
+  await User.findByIdAndDelete(id);
+  res.json({ message: 'Usuario eliminado correctamente' });
 };
 
 module.exports = {
   getAllUsers,
   getActiveUsers,
   createUser,
-  findUserByEmail,
+  loginUser,
   updateUser,
   deleteUser
 };
