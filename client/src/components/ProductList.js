@@ -31,7 +31,7 @@ export const ProductList = () => {
     const handleFilterChange = ({ category, priceRange }) => {
         let filtered = products;
 
-        if (category !== 'all') {
+        if (category !== 'Todos') {
         filtered = filtered.filter(p => p.category === category);
         }
 

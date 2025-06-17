@@ -1,70 +1,102 @@
 [
-    {
-      "id": 101,
-      "name": "Pelota de Fútbol Profesional",
-      "description": "Balón de fútbol reglamentario, tamaño y peso oficial FIFA.",
-      "price": 35.99,
-      "stock": 45,
-      "category": "Deportes",
-      "subcategory": "Fútbol",
-      "image": "https://celadasa.vtexassets.com/arquivos/ids/467581/IX4011-1.jpg?v=638743572929830000"
-    },
-    {
-      "id": 102,
-      "name": "Zapatillas de Running de Alto Rendimiento",
-      "description": "Calzado deportivo con amortiguación avanzada para corredores exigentes.",
-      "price": 89.50,
-      "stock": 30,
-      "category": "Running",
-      "image": "https://images.ctfassets.net/hnk2vsx53n6l/7LfgRzYDLMUFSfMDVqblUB/099359827c7557de3a1705a262c95927/0c144b410bab62b75a089e0ed02ccfbd540924c6.png?fm=webp"
-    },
-    {
-      "id": 103,
-      "name": "Raqueta de Tenis de Grafito",
-      "description": "Raqueta ligera y resistente para jugadores de nivel intermedio y avanzado.",
-      "price": 75.00,
-      "stock": 25,
-      "category": "Deportes",
-      "subcategory": "Tenis",
-      "image" : "data:image/jpeg;base64,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"
-    },
-    {
-      "id": 104,
-      "name": "Juego de Mancuernas Ajustables (2 x 10kg)",
-      "description": "Set de dos mancuernas con peso ajustable hasta 10kg cada una.",
-      "price": 59.99,
-      "stock": 20,
-      "category": "Fitness",
-      "image": "https://http2.mlstatic.com/D_Q_NP_771947-MLU72021369776_102023-O.webp",
-      "subcategory": "Gimnasio"
-    },
-    {
-      "id": 105,
-      "name": "Camiseta Técnica Deportiva Transpirable",
-      "description": "Remera deportiva de tejido técnico que absorbe el sudor y mantiene fresco.",
-      "price": 19.75,
-      "stock": 60,
-      "category": "Indumentaria",
-      "subcategory": "Remeras",
-      "image": "https://www.justpodium.com/biblioteca/-foto-articulo-25.jpg"
-    },
-    {
-      "id": 106,
-      "name": "Bicicleta de Montaña Aro 29",
-      "description": "Bicicleta MTB con cuadro de aluminio, suspensión delantera y cambios Shimano.",
-      "price": 399.00,
-      "stock": 10,
-      "category": "Deportes",
-      "subcategory": "Ciclismo",
-      "image": "data:image/jpeg;base64,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"
-    },
-    {
-      "id": 107,
-      "name": "Tabla de Yoga Antideslizante",
-      "description": "Mat de yoga de alta densidad con superficie antideslizante para mayor estabilidad.",
-      "price": 28.50,
-      "stock": 35,
-      "category": "Fitness",
-      "subcategory": "Yoga"
-    }
+  {
+    "id": 108,
+    "name": "Guantes de Boxeo de Cuero Sintético (12 oz)",
+    "description": "Guantes de entrenamiento para boxeo, kickboxing y Muay Thai. Relleno de espuma para máxima protección.",
+    "price": 45.50,
+    "stock": 28,
+    "category": "Deportes",
+    "subcategory": "Boxeo",
+    "image": "https://www.everlast.com.ar/media/catalog/product/cache/8d858dc7519a7168b449b2c890784918/p/0/p00002821_1_2.jpg"
+  },
+  {
+    "id": 109,
+    "name": "Cuerda para Saltar de Velocidad con Rodamientos",
+    "description": "Cuerda de acero recubierta con mangos ergonómicos y rodamientos de bolas para un giro rápido. Ideal para CrossFit y cardio.",
+    "price": 15.99,
+    "stock": 50,
+    "category": "Fitness",
+    "subcategory": "Accesorios",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_832103-MLA72274488970_102023-O.webp"
+  },
+  {
+    "id": 110,
+    "name": "Shorts Deportivos de Hombre con Bolsillos",
+    "description": "Pantalón corto de tejido ligero y transpirable, con cintura elástica y bolsillos con cremallera.",
+    "price": 24.90,
+    "stock": 70,
+    "category": "Indumentaria",
+    "subcategory": "Shorts",
+    "image": "https://sporting.vtexassets.com/arquivos/ids/1018698-800-800?v=638423238734930000&width=800&height=800&aspect=true"
+  },
+  {
+    "id": 111,
+    "name": "Palo de Hockey de Fibra de Vidrio",
+    "description": "Palo de hockey sobre césped para jugadores principiantes e intermedios. Compuesto de fibra de vidrio para mayor durabilidad.",
+    "price": 65.00,
+    "stock": 18,
+    "category": "Deportes",
+    "subcategory": "Hockey",
+    "image": "https://www.simonettideportes.com.ar/pub/media/catalog/product/cache/16a0481358b139eb538c22f20658a221/h/o/hockey_gryphon_cobra.jpg"
+  },
+  {
+    "id": 112,
+    "name": "Gafas de Natación Antiempañantes con Protección UV",
+    "description": "Gafas para natación con sellado de silicona, visión panorámica, tratamiento antiempañante y protección UV.",
+    "price": 21.75,
+    "stock": 40,
+    "category": "Deportes",
+    "subcategory": "Natación",
+    "image": "https://arenawaterinstinct.com/media/catalog/product/cache/1d2e73f273200782e46851612f00d238/0/0/003927-103_1_1.jpg"
+  },
+  {
+    "id": 113,
+    "name": "Pelota de Baloncesto de Goma Tamaño 7",
+    "description": "Balón de baloncesto de tamaño oficial, ideal para uso en interiores y exteriores. Superficie de goma para un agarre óptimo.",
+    "price": 29.99,
+    "stock": 33,
+    "category": "Deportes",
+    "subcategory": "Baloncesto",
+    "image": "https://www.opensports.com.ar/media/catalog/product/cache/4769e4d9f3516e1b9c3f4e69e5f96379/S/P/SP12903_0.jpg"
+  },
+  {
+    "id": 114,
+    "name": "Casco de Ciclismo Ventilado con Luz LED",
+    "description": "Casco aerodinámico con múltiples ventilaciones, ajuste regulable y luz LED trasera para mayor seguridad.",
+    "price": 55.20,
+    "stock": 22,
+    "category": "Deportes",
+    "subcategory": "Ciclismo",
+    "image": "https://slp.bike/wp-content/uploads/2023/10/CASCO-MTB-K-90-NEGRO-Y-GRIS-scaled-1.jpg"
+  },
+  {
+    "id": 115,
+    "name": "Mochila Deportiva Impermeable con Compartimento para Zapatillas",
+    "description": "Mochila de gran capacidad, resistente al agua, con compartimento separado y ventilado para calzado o ropa húmeda.",
+    "price": 49.95,
+    "stock": 25,
+    "category": "Accesorios",
+    "subcategory": "Mochilas",
+    "image": "https://www.tradeinn.com/f/13970/139703494/under-armour-mochila-hustle-sport-26l.jpg"
+  },
+  {
+    "id": 116,
+    "name": "Par de Medias de Compresión para Running",
+    "description": "Medias largas que mejoran la circulación y reducen la fatiga muscular durante y después del ejercicio.",
+    "price": 18.00,
+    "stock": 55,
+    "category": "Indumentaria",
+    "subcategory": "Accesorios",
+    "image": "https://www.newbalance.com.ar/media/catalog/product/cache/4/image/9df78eab33525d08d6e5fb8d27136e95/l/a/las95456bkw-1.jpg"
+  },
+  {
+    "id": 117,
+    "name": "Rodillo de Espuma de Alta Densidad para Liberación Miofascial",
+    "description": "Foam roller para masajes de tejido profundo, ideal para la recuperación muscular, yoga y pilates.",
+    "price": 32.50,
+    "stock": 30,
+    "category": "Fitness",
+    "subcategory": "Accesorios",
+    "image": "https://contents.mediadecathlon.com/p1937175/k$a9712396323c21a4732049b4931a7c06/foam-roller-rodillo-de-espuma-para-masaje-100-soft.jpg?format=auto&quality=40&f=800x800"
+  }
 ]
