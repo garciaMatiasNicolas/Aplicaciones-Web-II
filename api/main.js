@@ -9,8 +9,8 @@ require('dotenv').config();
 connectDB();
 
 app.use(cors({
-  origin: 'http://localhost:3001', // origen que quieres permitir
-  credentials: true, // si necesitas enviar cookies o headers personalizados
+  origin: 'http://localhost:3000',
+  credentials: true, 
 }));
 
 app.use(express.json());

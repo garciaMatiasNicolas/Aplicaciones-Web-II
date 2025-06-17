@@ -1,14 +1,13 @@
 // src/App.jsx
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { ProductList } from './components/ProductList';
-import { FilterPage } from './components/FilterPage';
-import { CheckoutPage } from './pages/CheckoutPage';
 import { Cart } from './components/Cart';
 import { CartProvider } from './context/CartContext';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
+    <AuthProvider>
     <CartProvider>
       <Router>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -31,13 +30,7 @@ function App() {
                   <Link className="nav-link" to="/">Inicio</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/filtrar">Filtrar</Link>
-                </li>
-                <li className="nav-item">
                   <Link className="nav-link" to="/carrito">Carrito</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/checkout">Checkout</Link>
                 </li>
               </ul>
             </div>
@@ -47,13 +40,12 @@ function App() {
         <div className="container mt-4">
           <Routes>
             <Route path="/" element={<ProductList />} />
-            <Route path="/filtrar" element={<FilterPage />} />
             <Route path="/carrito" element={<Cart />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
           </Routes>
         </div>
       </Router>
     </CartProvider>
+    </AuthProvider>
   );
 }
 
