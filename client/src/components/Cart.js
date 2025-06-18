@@ -2,54 +2,57 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import Swal from 'sweetalert2';
-import { createOrder } from '../services/api';
 import { AuthModal } from './AuthModal';
 import { useAuth } from '../context/AuthContext';
+import { OrderDetailsModal } from './OrderDetailsModal';
+const API_URL = 'http://localhost:8000/api';
 
 export const Cart = () => {
     const { cart, removeFromCart, clearCart } = useCart();
 
     const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const [showAuthModal, setShowAuthModal] = useState(false);
-    const { user, token } = useAuth();
+    const [showOrderDetails, setShowOrderDetails] = useState(false);
+    const { user, email, token } = useAuth();
 
-    const handleBuy = async () => {
+    const handleConfirmPurchase = () => {
         if (!user) {
             setShowAuthModal(true);
-            return;
-        }
-
-        if (cart.length === 0) {
-            Swal.fire('Carrito vacío', 'Agregá productos antes de comprar', 'warning');
-            return;
-        }
-
-        const res = await fetch('/api/orders', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                userId: user._id,
-                products: cart
-            })
-        });
-
-        const data = await res.json();
-
-        if (res.ok) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Orden creada',
-                text: `Tu orden #${data.orderId || 'desconocida'} fue creada exitosamente.`,
-            });
-            clearCart();
         } else {
-            Swal.fire('Error', data.error || 'No se pudo procesar la orden', 'error');
+            setShowOrderDetails(true);
         }
     };
 
+    const handleOrderDetailsConfirm = async (details) => {
+        // Enviar orden al backend
+        try {
+
+        const res = await fetch(`${API_URL}/orders`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            Authorization: token ? `Bearer ${token}` : undefined,
+            },
+            body: JSON.stringify({
+                cart,
+                email: email, // o el email que tengas en el contexto
+                address: details.address,
+                phone: details.phone,
+            }),
+        });
+
+        const data = await res.json();
+        console.log(data);
+        if (res.ok) {
+            Swal.fire('Éxito', 'Orden creada y enviada por email', 'success');
+        } else {
+            Swal.fire('Error', data.error || 'No se pudo crear la orden', 'error');
+        }
+        } catch (err) {
+        Swal.fire('Error', 'Error de red', 'error');
+        }
+        setShowOrderDetails(false);
+    };
 
     const handleRemove = (id) => {
         removeFromCart(id);
@@ -90,11 +93,15 @@ export const Cart = () => {
         {cart.length > 0 && (
             <div className="mt-4 d-flex justify-content-between align-items-center">
             <h4>Total: ${total.toLocaleString()}</h4>
-            <button className="btn btn-success" onClick={handleBuy}>Finalizar compra</button>
+            <button className="btn btn-success" onClick={handleConfirmPurchase}>Finalizar compra</button>
             </div>
         )}
         <AuthModal show={showAuthModal} onClose={() => setShowAuthModal(false)} />
-
+        <OrderDetailsModal
+            show={showOrderDetails}
+            onClose={() => setShowOrderDetails(false)}
+            onConfirm={handleOrderDetailsConfirm}
+        />
         </div>
     );
 };

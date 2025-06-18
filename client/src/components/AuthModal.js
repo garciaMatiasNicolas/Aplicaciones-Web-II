@@ -26,15 +26,24 @@ export const AuthModal = ({ show, onClose }) => {
             }
             result = await register(form.name, form.email, form.password);
         }
-
-        console.log(result)
-
-        if (result.user) {
-            Swal.fire('Éxito', isLogin ? 'Sesión iniciada' : 'Usuario registrado', 'success');
-            onClose();
+        
+        if (isLogin) {
+            if (result.user) {
+                Swal.fire('Éxito', 'Sesión iniciada', 'success');
+                onClose();
+            } else {
+                Swal.fire('Error', result.message || 'Algo salió mal', 'error');
+            }
         } else {
-            Swal.fire('Error', result.message || 'Algo salió mal', 'error');
-        }
+            if (result.messageError) {
+                Swal.fire('Error', result.messageError || 'Algo salió mal', 'error');
+            } else {
+                Swal.fire('Éxito', result.message, 'success');
+            };
+        };
+
+        setForm({ name: '', email: '', password: '' });
+        onClose();
     };
 
     if (!show) return null;

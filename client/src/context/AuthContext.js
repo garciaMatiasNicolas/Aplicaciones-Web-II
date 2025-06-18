@@ -6,12 +6,12 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(() => localStorage.getItem('token') || '');
+    const [email, setEmail] = useState(() => localStorage.getItem('email') || '');
 
     useEffect(() => {
         if (token) {
-            // Opcional: podés validar el token en el backend
             const payload = JSON.parse(atob(token.split('.')[1]));
-            setUser({ _id: payload.id }); // Podés hacer fetch del usuario completo si querés
+            setUser({ _id: payload.id, email: payload.email }); 
             localStorage.setItem('token', token);
         } else {
             localStorage.removeItem('token');
@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
     }, [token]);
 
     const login = async (email, password) => {
-        const res = await fetch('/api/users/login', {
+        const res = await fetch(`${API_URL}/users/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password }),
@@ -29,6 +29,8 @@ export const AuthProvider = ({ children }) => {
 
         if (res.ok && data.token) {
             setToken(data.token);
+            localStorage.setItem('email', email);
+            setEmail(email);
             return { user: { _id: JSON.parse(atob(data.token.split('.')[1])).id } };
         } else {
             return { message: data.error || 'Error al iniciar sesión' };
@@ -41,13 +43,13 @@ export const AuthProvider = ({ children }) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, password }),
         });
-
+        
+        
         const data = await res.json();
         if (res.ok) {
-            // Podés hacer login automático o pedir que inicie sesión
-            return login(email, password);
+            return { message: "Usuario creado exitosamente, inicie sesion" }
         } else {
-            return { message: data.error || 'Error al registrar usuario' };
+            return { messageError: data.error || 'Error al registrar usuario' };
         }
     };
 
@@ -57,7 +59,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, token, login, register, logout }}>
+        <AuthContext.Provider value={{ user, token, login, register, logout, email }}>
             {children}
         </AuthContext.Provider>
     );
